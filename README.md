@@ -84,7 +84,7 @@ your view functions.
 
 ### Running the app
 
-Now you can run `banjo` from the directory containing these files and the server
+Now you can run `banjo` from the directory containing the `app` folder and the server
 will start. Use the `--port` command to serve from a custom port; the default is
 5000.
 
