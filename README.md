@@ -40,6 +40,8 @@ Banjo can be installed with `pip install django-banjo`.
 To write a Banjo app, create a folder called `app`, define models in `models.py` and 
 define views in `views.py`. Here's a simple example. 
 
+### Models
+
 First, we define our models. Banjo provides four field types:
 
 - `BooleanField` (`True`, `False`)
@@ -47,21 +49,21 @@ First, we define our models. Banjo provides four field types:
 - `FloatField` (`0.045`, `11.5`)
 - `StringField` (`"alligator"`, `"hazelnut"`)
 
-### app/models.py
-
+    # app/models.py
     from banjo.models import Model, StringField
 
     class Animal(Model):
         name = StringField()
         sound = StringField()
 
+### Views
+
 Next we define our views. Each view is a function which receives a dict (called
 `params` in the example below) and which must return a dict. Use the 
 `banjo.urls.route_get` and `banjo.urls.route_post` decorators to route URLs to
 your view functions. 
     
-### app/views.py
-
+    # app/views.py
     from banjo.urls import route_get, route_post
     from models import Animal
     
