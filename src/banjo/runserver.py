@@ -44,4 +44,4 @@ def main():
     if args.shell:
         management.execute_from_command_line(['', 'shell_plus'])
     else:
-        management.execute_from_command_line(['', 'runserver', '5000'])
+        management.execute_from_command_line(['', 'runserver', str(args.port)])
