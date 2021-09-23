@@ -1,5 +1,6 @@
 from django.urls import path
 from django.http import JsonResponse, HttpResponseNotAllowed
+from banjo import http
 import json
 
 urlpatterns = []
@@ -18,8 +19,11 @@ def create_view(fn, method):
     def view(request):
         if request.method == method:
             params = get_request_params(request)
-            result = fn(params)
-            return JsonResponse(result)
+            try:
+                result = fn(params)
+                return JsonResponse(result)
+            except http.BadRequest as e:
+                return JsonResponse({'error': str(e)}, status=e.status_code)
         else:
             return HttpResponseNotAllowed([method])  
     return view
