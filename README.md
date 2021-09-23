@@ -35,7 +35,7 @@ Specific concepts which we target for simplification include:
 
 ## Usage
 
-Banjo can be instsalled with `pip install django-banjo`.
+Banjo can be installed with `pip install django-banjo`.
 
 To write a Banjo app, create a folder called `app`, define models in `models.py` and 
 define views in `views.py`. Here's a simple example. 
@@ -47,7 +47,7 @@ First, we define our models. Banjo provides four field types:
 - `FloatField` (`0.045`, `11.5`)
 - `StringField` (`"alligator"`, `"hazelnut"`)
 
-### `app/models.py`
+### app/models.py
 
     from banjo.models import Model, StringField
 
@@ -60,7 +60,7 @@ Next we define our views. Each view is a function which receives a dict (called
 `banjo.urls.route_get` and `banjo.urls.route_post` decorators to route URLs to
 your view functions. 
     
-### `app/views.py`
+### app/views.py
 
     from banjo.urls import route_get, route_post
     from models import Animal
@@ -77,6 +77,8 @@ your view functions.
         for animal in Animal.objects.all():
             sounds.append('{} says {}'.format(a.name, a.sound))     
         return {'sounds': sounds}
+
+### Running the app
 
 Now you can run `banjo` from the directory containing these files and the server
 will start. Use the `--port` command to serve from a custom port; the default is
