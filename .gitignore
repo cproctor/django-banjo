@@ -1,0 +1,4 @@
+__pycache__/*
+*.swp
+*.pyc
+src/django_banjo.egg-info/*
