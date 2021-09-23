@@ -49,6 +49,8 @@ First, we define our models. Banjo provides four field types:
 - `FloatField` (`0.045`, `11.5`)
 - `StringField` (`"alligator"`, `"hazelnut"`)
 
+Create a Model for each object your app will interact with.
+
     # app/models.py
     from banjo.models import Model, StringField
 
@@ -92,6 +94,7 @@ utility:
     $ http localhost:5000/newanimal name=elehpant sound=pffffftttttt
 
     { 
+      "id": 1,
       "name": "elephant",
       "sound": "pffffftttttt"
     }
@@ -99,6 +102,7 @@ utility:
     $ http localhost:5000/newanimal name=squirrel sound=chcheee
 
     { 
+      "id": 2,
       "name": "squirrel",
       "sound": "chcheee"
     }
