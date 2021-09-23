@@ -120,7 +120,7 @@ utility:
 ### HTTP errors
 
 If something goes wrong and it's the client's fault, you can raise an error.
-For example:
+For example, you might add another view to `app/views.py`:
 
     from banjo.http import NotAllowed
 
