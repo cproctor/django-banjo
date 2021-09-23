@@ -122,16 +122,16 @@ utility:
 If something goes wrong and it's the client's fault, you can raise an error.
 For example, you might add another view to `app/views.py`:
 
-    from banjo.http import NotAllowed
+    from banjo.http import Forbidden
 
     @route_get('error')
     def error(params):
-        raise NotAllowed("Nice try.")
+        raise Forbidden("Nice try.")
 
 Again, from the command line:
 
     $ http GET localhost:5000/error
-    HTTP/1.1 405 Method Not Allowed
+    HTTP/1.1 403 Forbidden
     
     {
         "error": "Nice try."
