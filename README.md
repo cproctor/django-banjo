@@ -126,7 +126,17 @@ For example:
 
     @route_get('error')
     def error(params):
-        raise NotAllowed("I said no.")
+        raise NotAllowed("Nice try.")
+
+Again, from the command line:
+
+    $ http GET localhost:5000/error
+    HTTP/1.1 405 Method Not Allowed
+    
+    {
+        "error": "Nice try."
+    }
+
 
 The following errors are available in `banjo.http`:
 
