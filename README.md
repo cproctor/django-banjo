@@ -36,6 +36,8 @@ Specific concepts which we target for simplification include:
 
 ## Usage
 
+Banjo can be instsalled with `pip install django-banjo`.
+
 To write a Banjo app, create a folder called `app`, define models in `models.py` and 
 define views in `views.py`. Here's a simple example. 
 
