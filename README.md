@@ -84,14 +84,14 @@ will start. Use the `--port` command to serve from a custom port; the default is
 Here is an example of interacting with this app using the `httpie` command-line
 utility:
 
-    $ http localhost:5000/add name=elehpant sound=pffffftttttt
+    $ http localhost:5000/newanimal name=elehpant sound=pffffftttttt
 
     { 
       "name": "elephant",
       "sound": "pffffftttttt"
     }
 
-    $ http localhost:5000/add name=squirrel sound=chcheee
+    $ http localhost:5000/newanimal name=squirrel sound=chcheee
 
     { 
       "name": "squirrel",
