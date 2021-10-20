@@ -67,19 +67,19 @@ your view functions.
     
     # app/views.py
     from banjo.urls import route_get, route_post
-    from models import Animal
+    from app.models import Animal
     
-    @route('newanimal')
+    @route_post('newanimal')
     def add_animal(params):
         animal = Animal.from_dict(params)
         animal.save()
         return animal.to_dict()
 
-    @route('listen')
+    @route_get('listen')
     def list_animal_sounds(params):
         sounds = []
         for animal in Animal.objects.all():
-            sounds.append('{} says {}'.format(a.name, a.sound))     
+            sounds.append('{} says {}'.format(animal.name, animal.sound))     
         return {'sounds': sounds}
 
 ### Running the app
