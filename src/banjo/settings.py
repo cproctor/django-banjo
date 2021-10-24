@@ -10,7 +10,7 @@ DATABASES = {
     }
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-ALLOWED_HOSTS = "*"
+ALLOWED_HOSTS = ["*"]
 SECRET_KEY = "xxx"
 INSTALLED_APPS = [
     "django_extensions",

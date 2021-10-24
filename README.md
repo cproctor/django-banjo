@@ -186,19 +186,3 @@ ought to learn about. This would be the right time to move from banjo to django.
    web browser. If there is an error, `heroku logs --tail` will show you what's going on. This
    is a good place to start with debugging. After you update your code, commit it and push again to 
    heroku.
-
-### Notes on Heroku deployment
-
-`banjo --init-heroku` should:
-
-- Check for the `heroku` executable. Or fail with a message.
-- Create `Procfile` with: 
-
-      web: banjo
-
-- Install `gunicorn` if not already installed.
-- Install `django-heroku` if not already installed.
-- Create `requirements.txt` with `pip freeze`.
-
-
-
