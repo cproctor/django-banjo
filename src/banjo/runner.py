@@ -16,7 +16,7 @@ def main():
     from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument("-s", "--shell", action="store_true")
-    parser.add_argument("-s", "--init-heroku", action="store_true")
+    parser.add_argument("-h", "--init-heroku", action="store_true")
     parser.add_argument("-p", "--port", type=int, default=5000)
     args = parser.parse_args()
 
