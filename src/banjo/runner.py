@@ -1,3 +1,4 @@
+import os
 from os.path import abspath, dirname, join
 import sys
 import django
@@ -5,29 +6,7 @@ from django.conf import settings
 from django.core import management
 
 sys.path.insert(0, '.')
-
-settings.configure(
-    BASE_DIR = dirname(abspath(__file__)),
-    DEBUG=True,
-    ROOT_URLCONF = "banjo.urls",
-    DATABASES = {
-        "default": {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'database.sqlite',
-        }
-    },
-    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField',
-    ALLOWED_HOSTS = "*",
-    SECRET_KEY = "xxx",
-    INSTALLED_APPS = [
-        "django_extensions",
-        "banjo",
-        "app",
-    ],
-    SHELL_PLUS_DONT_LOAD = [
-        "banjo",
-    ]
-)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'banjo.settings')
 django.setup()
 
 def main():

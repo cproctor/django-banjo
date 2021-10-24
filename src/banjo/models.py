@@ -16,7 +16,14 @@ class Model(models.Model):
         """Returns a json representation of the Model.
         """
         field_names = [f.name for f in self._meta.get_fields() if f.name != "model_ptr"]
-        return {name: getattr(self, name) for name in field_names}
+        d = {}
+        for name in field_names:
+            value = getattr(self, name)
+            if isinstance(value, Model):
+                d[name] = {'id': value.id}
+            else:
+                d[name] = value
+        return d
 
     def __str__(self):
         return "<{} {}>".format(self.__class__.__name__, self.to_dict())
@@ -55,3 +62,10 @@ class StringField(models.TextField):
     def __init__(self, *args, **kwargs):
         kwargs['default'] = ''
         models.TextField.__init__(self, *args, **kwargs)
+
+class ForeignKey(models.ForeignKey):
+    """A database column which links a model to another model.
+    """
+    def __init__(self, *args, **kwargs):
+        kwargs['on_delete'] = models.CASCADE
+        models.ForeignKey.__init__(self, *args, **kwargs)
