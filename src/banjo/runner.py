@@ -16,7 +16,7 @@ def main():
     from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument("-s", "--shell", action="store_true")
-    parser.add_argument("-i", "--init-heroku", action="store_true")
+    parser.add_argument("-i", "--init_heroku", action="store_true")
     parser.add_argument("-p", "--port", type=int, default=5000)
     args = parser.parse_args()
 
@@ -26,7 +26,7 @@ def main():
     
     if args.shell:
         management.execute_from_command_line(['', 'shell_plus'])
-    elif args['init-heroku']:
+    elif args.init_heroku:
         print("Checking configuration for Heroku deployment...")
         print(" * Checking for app/ folder") 
         app_path = Path('app')
@@ -36,7 +36,7 @@ def main():
         if shutil.which('heroku') is None:
             raise OSError("Heroku is not installed.")
         print(" * Checking that django-banjo is installed")
-        import django_banjo
+        import banjo
         print(" * Checking that gunicorn is installed")
         import gunicorn
         print(" * Checking that django-heroku is installed")
@@ -49,12 +49,12 @@ def main():
         print(" * Checking for wsgi.py")
         if not Path("wsgi.py").exists():
             with open('wsgi.py', 'w') as fh:
-                fh.write('\n'.join(
+                fh.write('\n'.join([
                     "import os",
                     "from django.core.wsgi import get_wsgi_application",
                     "os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'banjo.settings_heroku')",
                     "application = get_wsgi_application()"
-                ))
+                ]))
             print(" --> Created wsgi.py")
         print(" * Checking for Procfile")
         if not Path('Procfile').exists():

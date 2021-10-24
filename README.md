@@ -166,7 +166,7 @@ ought to learn about. This would be the right time to move from banjo to django.
 
 1. Create a heroku account and install the `heroku` command line tool. 
    [Follow these steps](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true). 
-2. Run `banjo --init-heroku`. This will add a few files to your app which are required by Heroku. 
+2. Run `banjo --init_heroku`. This will add a few files to your app which are required by Heroku. 
    You do not need to make any changes to these files. 
 3. Deployment to Heroku is done via git, so you need to make sure you have your
    project in a git repo. Learning git is another whole topic, but the simplest 
