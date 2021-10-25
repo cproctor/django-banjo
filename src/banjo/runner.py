@@ -66,7 +66,7 @@ def main():
     parser.add_argument("-s", "--shell", action="store_true")
     parser.add_argument("-i", "--init_heroku", action="store_true")
     parser.add_argument("-p", "--port", type=int, default=5000)
-    parser.add_artument("-d", "--debug", action="store_true")
+    parser.add_argument("-d", "--debug", action="store_true")
     args = parser.parse_args()
 
     if args.shell:
