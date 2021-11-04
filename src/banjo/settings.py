@@ -19,7 +19,4 @@ INSTALLED_APPS = [
 ]
 MIDDLEWARE = [
 ]
-SHELL_PLUS_DONT_LOAD = [
-    "banjo",
-]
-
+SHELL_PLUS_DJANGO_IMPORTS = False

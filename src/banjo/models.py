@@ -32,7 +32,7 @@ class Model(models.Model):
 
     class Meta:
         abstract = True
-        app_label = "banjo"
+        app_label = "app"
 
 class BooleanField(models.BooleanField):
     """A database column which stores a boolean.
