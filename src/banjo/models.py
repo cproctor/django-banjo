@@ -21,6 +21,8 @@ class Model(models.Model):
             value = getattr(self, name)
             if isinstance(value, Model):
                 d[name] = {'id': value.id}
+            elif hasattr(value, 'all'):
+                d[name] = [{'id': obj.id} for obj in value.all()]
             else:
                 d[name] = value
         return d
@@ -29,6 +31,7 @@ class Model(models.Model):
         return "<{} {}>".format(self.__class__.__name__, self.to_dict())
 
     class Meta:
+        abstract = True
         app_label = "banjo"
 
 class BooleanField(models.BooleanField):
