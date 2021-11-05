@@ -22,7 +22,6 @@ Specific concepts which we target for simplification include:
 - Simplify filesystem layout: Only two files are required: `models.py` and
   `views.py`. 
 
-
 - Simplify management commands: There is a single command, `banjo`, which
   effectively runs django's `makemigrations`, `migrate`, and `runserver` in sequence.
   `banjo --shell` enters the REPL with all user-defined models loaded.
@@ -70,7 +69,7 @@ your view functions.
     from banjo.urls import route_get, route_post
     from app.models import Animal
     
-    @route_post('newanimal')
+    @route_post('newanimal', args={'name': str, 'sound': str})
     def add_animal(params):
         animal = Animal.from_dict(params)
         animal.save()
@@ -83,11 +82,17 @@ your view functions.
             sounds.append('{} says {}'.format(animal.name, animal.sound))     
         return {'sounds': sounds}
 
+Some views, such as "newanimal," require arguments. When a view requires arguments, 
+pass an `args` dict to the decorator to specify the expected names and types of arguments.
+Argument types must be `str`, `bool`, `int`, or `float`.
+
 ### Running the app
 
 Now you can run `banjo` from the directory containing the `app` folder and the server
 will start. Use the `--port` command to serve from a custom port; the default is
 5000.
+
+Banjo provides a visual API browser at `/api`. 
 
 Here is an example of interacting with this app using the `httpie` command-line
 utility:
