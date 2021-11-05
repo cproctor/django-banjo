@@ -1,0 +1,11 @@
+{% extends "banjo/base.html" %}
+
+{% block content %}
+<h1>API</h1>
+<p>View as <a href="{% url "api_json" %}">JSON</a></p>
+{% for route in routes %}
+  <h2><a href="{{ route.api_url }}">{{route.name}}</a></h2>
+  <p>URL: <a href="{{ route.url }}">{{route.url}}</a></p>
+  <p>{{route.description}}</p>
+{% endfor %}
+{% endblock %}
