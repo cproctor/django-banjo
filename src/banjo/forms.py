@@ -1,10 +1,10 @@
 from django import forms
 
 type_fields = {
-    str: forms.CharField,
-    bool: forms.BooleanField,
-    int: forms.IntegerField,
-    float: forms.FloatField,
+    str: lambda: forms.CharField(),
+    bool: lambda: forms.BooleanField(required=False),
+    int: lambda: forms.IntegerField(),
+    float: lambda: forms.FloatField(),
 }
 
 class ApiRouteForm(forms.Form):
