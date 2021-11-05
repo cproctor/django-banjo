@@ -14,7 +14,7 @@ be able to seamlessly transition to django.
 
 Specific concepts which we target for simplification include:
 
-- Simplify DB schema: A severly-limited subset of field types is provided.
+- Simplify DB schema: A severely-limited subset of field types is provided.
   There are no foreign key relations or field options. Field names correspond to
   familiar Python types. All fields have default values. Migrations are handled
   automatically. Within these constraints, django's full ORM is available.
@@ -93,6 +93,8 @@ will start. Use the `--port` command to serve from a custom port; the default is
 5000.
 
 Banjo provides a visual API browser at `/api`. 
+
+![Screenshot of visual API browser](banjo_api.png)
 
 Here is an example of interacting with this app using the `httpie` command-line
 utility:
