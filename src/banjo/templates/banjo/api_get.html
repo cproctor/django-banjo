@@ -1,7 +1,7 @@
 {% extends "banjo/base.html" %}
 
 {% block content %}
-  <h1>{{route.name}}</h1>
+  <h1>{{route.human_name}}</h1>
   <p>GET URL: <a href="{{ route.url }}">{{route.url}}</a></p>
   <p>{{route.description}}</p>
   {% if form %}
