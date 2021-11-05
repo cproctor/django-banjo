@@ -15,22 +15,23 @@ be able to seamlessly transition to django.
 Specific concepts which we target for simplification include:
 
 - Simplify DB schema: A severely-limited subset of field types is provided.
-  There are no foreign key relations or field options. Field names correspond to
-  familiar Python types. All fields have default values. Migrations are handled
-  automatically. Within these constraints, django's full ORM is available.
-
+  Field names correspond to familiar Python types. All fields have default values. 
+  Migrations are handled automatically. Within these constraints, django's full 
+  ORM is available.
 - Simplify filesystem layout: Only two files are required: `models.py` and
   `views.py`. 
-
 - Simplify management commands: There is a single command, `banjo`, which
   effectively runs django's `makemigrations`, `migrate`, and `runserver` in sequence.
   `banjo --shell` enters the REPL with all user-defined models loaded.
-
 - Simplify request/response lifecycle: View functions receive a dict of params and 
   must return a dict. View-URL binding is handled by decorators, as in flask, and all
   URLs are static (there are no placeholders and no params are passed to the
   view).  Http errors are provided as exceptions, which simplifies control flow. 
   Models have `from_dict` (class method) and `to_dict` (instance method) helpers.
+
+Banjo was designed for use by teachers familiar with django; this is intentionally a 
+leaky abstraction which provides a structured introduction into the power and 
+the complexity of the underlying system. 
 
 ## Usage
 
