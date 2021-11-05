@@ -33,7 +33,7 @@ Banjo was designed for use by teachers familiar with django; this is intentional
 leaky abstraction which provides a structured introduction into the power and 
 the complexity of the underlying system. 
 
-## Usage
+## Creating an app
 
 Banjo can be installed with `pip install django-banjo`.
 
@@ -87,7 +87,36 @@ Some views, such as "newanimal," require arguments. When a view requires argumen
 pass an `args` dict to the decorator to specify the expected names and types of arguments.
 Argument types must be `str`, `bool`, `int`, or `float`.
 
-### Running the app
+### HTTP errors
+
+If something goes wrong and it's the client's fault, you can raise an error.
+For example, you might add another view to `app/views.py`:
+
+    from banjo.http import Forbidden
+
+    @route_get('secrets')
+    def do_not_show_the_secrets(params):
+        raise Forbidden("Nice try.")
+
+Again, from the command line:
+
+    $ http GET localhost:5000/secrets
+    HTTP/1.1 403 Forbidden
+    
+    {
+        "error": "Nice try."
+    }
+
+
+The following errors are available in `banjo.http`:
+
+- `BadRequest` (400)
+- `Forbidden` (403)
+- `NotFound` (404)
+- `NotAllowed` (405)
+- `ImATeapot` (418)
+
+## Running the app
 
 Now you can run `banjo` from the directory containing the `app` folder and the server
 will start. Use the `--port` command to serve from a custom port; the default is
@@ -126,36 +155,7 @@ utility:
     }
 
 
-### HTTP errors
-
-If something goes wrong and it's the client's fault, you can raise an error.
-For example, you might add another view to `app/views.py`:
-
-    from banjo.http import Forbidden
-
-    @route_get('secrets')
-    def do_not_show_the_secrets(params):
-        raise Forbidden("Nice try.")
-
-Again, from the command line:
-
-    $ http GET localhost:5000/secrets
-    HTTP/1.1 403 Forbidden
-    
-    {
-        "error": "Nice try."
-    }
-
-
-The following errors are available in `banjo.http`:
-
-- `BadRequest` (400)
-- `Forbidden` (403)
-- `NotFound` (404)
-- `NotAllowed` (405)
-- `ImATeapot` (418)
-
-### Shell
+## Shell
 
 You can also interact with your app's models from a Python shell. Just pass the
 `--shell` argument to banjo:
@@ -164,7 +164,7 @@ You can also interact with your app's models from a Python shell. Just pass the
     > Animal.objects.count()
     2
 
-### Deploying to Heroku
+## Deploying to Heroku
 
 Heroku is a service which simplifies app deployment. Deploying a banjo app
 wih Heroku lets anyone on the internet interact with it. Be careful about protecting
