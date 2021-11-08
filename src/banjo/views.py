@@ -12,6 +12,7 @@ def describe_route(urlpattern):
         "arguments": {param: type_.__name__ for param, type_ in f.args.items()},
         "url": reverse(p.name),
         "api_url": reverse("api_" + p.name),
+        "method": f.method,
     }
 
 def get_routes():
