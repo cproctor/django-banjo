@@ -32,6 +32,7 @@ def create_view(fn, method, args=None):
     a dict of {param_name: type}, where type is in 
     [str, bool, int, float].
     """
+    method = method.upper()
     def view(request):
         if request.method != method:
             return HttpResponseNotAllowed([method])  
@@ -42,19 +43,26 @@ def create_view(fn, method, args=None):
                 data = request.GET
             else:
                 data = request.POST
-        FormClass = ApiRouteForm.for_args(args)
-        form = FormClass(data)
-        if form.is_valid():
+            FormClass = ApiRouteForm.for_args(args)
+            form = FormClass(data)
+            if form.is_valid():
+                try:
+                    result = fn(form.cleaned_data)
+                    return JsonResponse(result)
+                except http.BadRequest as e:
+                    return JsonResponse({'error': str(e)}, status=e.status_code)
+            else:
+                return JsonResponse({'errors': form.errors}, status=400)
+        else:
             try:
-                result = fn(form.cleaned_data)
+                result = fn({})
                 return JsonResponse(result)
             except http.BadRequest as e:
                 return JsonResponse({'error': str(e)}, status=e.status_code)
-        else:
-            return JsonResponse({'errors': form.errors}, status=400)
 
     view.__name__ = fn.__name__
     view.__doc__ = fn.__doc__
+    view.method = method
     validate_args(args)
     view.args = args or {}
     return view
@@ -65,6 +73,8 @@ def create_api_view(url, fn, method, args=None):
     the response data for GET routes and a form for POST routes.
     For POST routes, the view processes the form.
     """
+    method = method.upper()
+    fn.method = method
     def api_view(request):
         fn.args = args or {}
         route = views.describe_route(path(url, fn, name=fn.__name__))
