@@ -164,33 +164,3 @@ You can also interact with your app's models from a Python shell. Just pass the
     > Animal.objects.count()
     2
 
-## Deploying to Heroku
-
-Heroku is a service which simplifies app deployment. Deploying a banjo app
-wih Heroku lets anyone on the internet interact with it. Be careful about protecting
-private information. Banjo is best for learning how to make webapps; 
-if anybody is going to rely on your app in a serious way, there are more details you 
-ought to learn about. This would be the right time to move from banjo to django.
-
-1. Create a heroku account and install the `heroku` command line tool. 
-   [Follow these steps](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true). 
-2. Run `banjo --init_heroku`. This will add a few files to your app which are required by Heroku. 
-   You do not need to make any changes to these files. 
-3. Deployment to Heroku is done via git, so you need to make sure you have your
-   project in a git repo. Learning git is another whole topic, but the simplest 
-   workflow would include:
-
-        $ git init
-        $ git add .
-        $ git commit -m "Initial commit"
-        $ git branch -m master main
-
-4. Now you can deploy your app by pushing your code to Heroku. 
-
-        $ heroku create
-        $ git push heroku main
-
-5. You should now be able to interact with your app. Run `heroku open` to open it in the 
-   web browser. If there is an error, `heroku logs --tail` will show you what's going on. This
-   is a good place to start with debugging. After you update your code, commit it and push again to 
-   heroku.
