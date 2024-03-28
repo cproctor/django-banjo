@@ -27,10 +27,10 @@ def validate_args(args):
 def create_view(fn, method, args=None):
     """Creates a django view function.
     The view function checks that the HTTP method is correct, 
-    extracts the request's params, passes them to `fn`, 
+    extracts the request's params, passes them to ``fn``, 
     and returns the result. Args, if provided, should be 
-    a dict of {param_name: type}, where type is in 
-    [str, bool, int, float].
+    a dict of ``{param_name: type}``, where type is in 
+    ``[str, bool, int, float]``.
     """
     method = method.upper()
     def view(request):
@@ -129,6 +129,8 @@ def create_api_view(url, fn, method, args=None):
     
 
 def route_get(url, args=None):
+    """A decorator which registers a HTTP GET route in the Banjo app.
+    """
     def bind_url_to_view(fn):
         view = create_view(fn, "GET", args=args)
         api_view = create_api_view(url, fn, "GET", args=args)
@@ -139,6 +141,8 @@ def route_get(url, args=None):
     return bind_url_to_view
 
 def route_post(url, args=None):
+    """A decorator which registers a HTTP POST route in the Banjo app.
+    """
     def bind_url_to_view(fn):
         view = create_view(fn, "POST", args=args)
         api_view = create_api_view(url, fn, "POST", args=args)

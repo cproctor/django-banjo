@@ -4,3 +4,4 @@ __pycache__/*
 src/django_banjo.egg-info/*
 dist/*
 build/*
+docs/_build/*

@@ -16,13 +16,17 @@ def describe_route(urlpattern):
     }
 
 def get_routes():
+    """Returns a list of dicts, each describing a route in the app.
+    """
     from banjo.urls import user_defined_routes
     return [describe_route(r) for r in user_defined_routes]
 
 def api(request):
+    """A view which renders the API index page.
+    """
     return render(request, "banjo/api.html", {"routes": get_routes()})
     
 def api_json(request):
-    "Returns a JSON rpresentaiton of available API routes"
+    "Returns a JSON representaiton of available API routes"
     routes = {'routes': get_routes()}
     return JsonResponse(routes)

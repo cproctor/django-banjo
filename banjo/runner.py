@@ -11,6 +11,20 @@ from django.core import management
 sys.path.insert(0, '.')
 
 def setup_django(debug=False, settings=None):
+    """Sets up Django and runs prerequisite management commands.
+
+    Django needs to be configured before any app-specific code can be loaded.
+    Sets the environment variable ``DJANGO_SETTINGS_MODULE`` so Django uses one of 
+    Banjo's settings modules (and so the user's app doesn't need a settings file). 
+    Then runs ``django.setup()``. 
+
+    Imports the app's views module, which 
+    causes banjo's route_get and route_post decorators to be invoked, 
+    which populates ``banjo.urls:urlpatterns``.
+
+    Finally, executes Django management commands ``makemigrations`` and ``migrate``, 
+    ensuring that the database is in sync with the app's models.
+    """
     if settings:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings)
     elif debug:
@@ -27,6 +41,11 @@ def setup_django(debug=False, settings=None):
     management.execute_from_command_line(['', 'migrate'])
 
 def main():
+    """The entry point for the Banjo CLI. 
+    Declares arguments and then invokes Django management commands. If ``--shell``, 
+    invokes ``shell_plus``, otherwise invokes ``runserver``, passing along 
+    ``--port`` and ``--debug`` options.
+    """
     from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument("-s", "--shell", action="store_true")

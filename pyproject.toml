@@ -15,6 +15,12 @@ django = "^5.0.3"
 django-extensions = "^3.2.3"
 environ = "^1.0"
 
+[tool.poetry.group.dev.dependencies]
+sphinx = "^7.2.6"
+furo = "^2024.1.29"
+
+[tool.poetry.scripts]
+banjo = "banjo.runner:main"
 
 [build-system]
 requires = ["poetry-core"]
