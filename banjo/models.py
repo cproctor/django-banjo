@@ -1,26 +1,24 @@
 from django.db import models
 from random import choice, sample
 
-class RandomItemManager(models.Manager):
-    """Extends the base manager with random() and sample() methods
+class RandomItemQuerySet(models.QuerySet):
+    """Extends the base QuerySey with random() and sample() methods
     """
     def random(self):
-        ids = self.get_queryset().values_list('id', flat=True)
+        ids = self.values_list('id', flat=True)
         if not ids:
-            model_class = self.get_queryset().model
-            raise model_class.DoesNotExist(f"{model_class.__name__} is empty")
+            raise self.model.DoesNotExist(f"{self.model.__name__} is empty")
         return self.get(id=choice(ids))
 
     def sample(self, n):
-        ids = self.get_queryset().values_list('id', flat=True)
+        ids = self.values_list('id', flat=True)
         if len(ids) < n:
-            model_class = self.get_queryset().model
-            raise model_class.DoesNotExist(f"Requested {n} but {model_class.__name__} only contains {len(ids)} objects.")
+            raise self.model.DoesNotExist(f"Requested {n} but {self.model.__name__} only contains {len(ids)} objects.")
         return self.filter(id__in=sample([i for i in ids], n))
 
 class Model(models.Model):
 
-    objects = RandomItemManager()
+    objects = models.Manager.from_queryset(RandomItemQuerySet)()
 
     @classmethod
     def from_dict(cls, props):
