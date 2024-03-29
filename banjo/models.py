@@ -1,8 +1,26 @@
-# banjo.db.models
-# Database models which wrap django
 from django.db import models
+from random import choice, sample
+
+class RandomItemManager(models.Manager):
+    """Extends the base manager with random() and sample() methods
+    """
+    def random(self):
+        ids = self.get_queryset().values_list('id', flat=True)
+        if not ids:
+            model_class = self.get_queryset().model
+            raise model_class.DoesNotExist(f"{model_class.__name__} is empty")
+        return self.get(id=choice(ids))
+
+    def sample(self, n):
+        ids = self.get_queryset().values_list('id', flat=True)
+        if len(ids) < n:
+            model_class = self.get_queryset().model
+            raise model_class.DoesNotExist(f"Requested {n} but {model_class.__name__} only contains {len(ids)} objects.")
+        return self.filter(id__in=sample([i for i in ids], n))
 
 class Model(models.Model):
+
+    objects = RandomItemManager()
 
     @classmethod
     def from_dict(cls, props):
