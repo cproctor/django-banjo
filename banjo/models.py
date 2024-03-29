@@ -30,6 +30,9 @@ class Model(models.Model):
     def __str__(self):
         return "<{} {}>".format(self.__class__.__name__, self.to_dict())
 
+    def __repr__(self):
+        return self.__str__()
+
     class Meta:
         abstract = True
         app_label = "app"
