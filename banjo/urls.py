@@ -83,12 +83,18 @@ def create_api_view(url, fn, method, args=None):
             if args:
                 form = ApiRouteForm.for_args(args)(request.GET)
                 if form.is_valid():
-                    result = fn(form.cleaned_data)
+                    try:
+                        result = fn(form.cleaned_data)
+                    except http.BadRequest as e:
+                        result = {'error': str(e), 'status_code': e.status_code}
                 else:
                     result = None
             else:
                 form = None
-                result = fn({})
+                try:
+                    result = fn({})
+                except http.BadRequest as e:
+                    result = {'error': str(e), 'status_code': e.status_code}
             return render(request, "banjo/api_get.html", {
                 "route": route,
                 "result": json.dumps(result, indent=True) if result else None,
@@ -99,13 +105,19 @@ def create_api_view(url, fn, method, args=None):
                 if args:
                     form = ApiRouteForm.for_args(args)(request.POST)
                     if form.is_valid():
-                        result = fn(form.cleaned_data)
+                        try:
+                            result = fn(form.cleaned_data)
+                        except http.BadRequest as e:
+                            result = {'error': str(e), 'status_code': e.status_code}
                         form = ApiRouteForm.for_args(args)()
                     else:
                         result = None
                 else:
                     form = None
-                    result = fn({})
+                    try:
+                        result = fn({})
+                    except http.BadRequest as e:
+                        result = {'error': str(e), 'status_code': e.status_code}
             else:
                 if args:
                     form = ApiRouteForm.for_args(args)()
