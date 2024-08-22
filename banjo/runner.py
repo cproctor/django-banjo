@@ -33,8 +33,6 @@ def setup_django(debug=False, settings=None):
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'banjo.settings')
     django.setup()
 
-    # Loading views causes banjo's route_get and route_post decorators to be invoked,
-    # which populates banjo.urls:urlpatterns. 
     from app import views
 
     management.execute_from_command_line(['', 'makemigrations', 'app', 'banjo'])
