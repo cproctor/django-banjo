@@ -81,7 +81,7 @@ Again, from the command line:
 
 ::
 
-   $ http GET localhost:5000/secrets
+   $ http GET localhost:8000/secrets
    HTTP/1.1 403 Forbidden
 
    {
@@ -101,7 +101,7 @@ Running the app
 
 Now you can run ``banjo`` from the directory containing the ``app``
 folder and the server will start. Use the ``--port`` command to serve
-from a custom port; the default is 5000. You can also pass ``--debug``, which 
+from a custom port; the default is 8000. You can also pass ``--debug``, which 
 launches the app in Django's debug mode.
 
 Banjo provides a visual API browser at ``/api``.
@@ -116,7 +116,7 @@ command-line utility:
 
 ::
 
-   $ http localhost:5000/newanimal name=elehpant sound=pffffftttttt
+   $ http localhost:8000/newanimal name=elehpant sound=pffffftttttt
 
    { 
      "id": 1,
@@ -124,7 +124,7 @@ command-line utility:
      "sound": "pffffftttttt"
    }
 
-   $ http localhost:5000/newanimal name=squirrel sound=chcheee
+   $ http localhost:8000/newanimal name=squirrel sound=chcheee
 
    { 
      "id": 2,
@@ -132,7 +132,7 @@ command-line utility:
      "sound": "chcheee"
    }
 
-   $ http localhost:5000/listen
+   $ http localhost:8000/listen
 
    {
      "sounds": [
