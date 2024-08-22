@@ -47,7 +47,7 @@ def main():
     from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument("-s", "--shell", action="store_true")
-    parser.add_argument("-p", "--port", type=int, default=5000)
+    parser.add_argument("-p", "--port", type=int, default=8000)
     parser.add_argument("-d", "--debug", action="store_true")
     parser.add_argument("-m", "--settings")
     args = parser.parse_args()
