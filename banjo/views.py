@@ -27,6 +27,6 @@ def api(request):
     return render(request, "banjo/api.html", {"routes": get_routes()})
     
 def api_json(request):
-    "Returns a JSON representaiton of available API routes"
+    "Returns a JSON representation of available API routes"
     routes = {'routes': get_routes()}
     return JsonResponse(routes)
