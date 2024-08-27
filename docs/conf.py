@@ -11,7 +11,7 @@ django.setup()
 project = 'Banjo'
 copyright = '2024, Chris Proctor'
 author = 'Chris Proctor'
-release = '0.6.1'
+release = '0.7.0'
 extensions = ['sphinx.ext.viewcode', 'sphinx.ext.autodoc']
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

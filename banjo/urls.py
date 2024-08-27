@@ -1,14 +1,17 @@
 from django.urls import path
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.shortcuts import render
+from django.conf import settings
 from banjo import http
 from banjo import views
 from banjo.forms import ApiRouteForm
 import json
 
+api_prefix = settings.API_PREFIX if hasattr(settings, 'API_PREFIX') else ''
+
 urlpatterns = [
-    path("api", views.api, name="api"),
-    path("api.json", views.api_json, name="api_json"),
+    path(api_prefix, views.api, name="api"),
+    path(api_prefix + "api.json", views.api_json, name="api_json"),
 ]
 user_defined_routes = []
 
