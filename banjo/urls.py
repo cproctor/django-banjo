@@ -7,11 +7,11 @@ from banjo import views
 from banjo.forms import ApiRouteForm
 import json
 
-api_prefix = settings.API_PREFIX if hasattr(settings, 'API_PREFIX') else ''
+api_prefix = settings.API_PREFIX if hasattr(settings, 'API_PREFIX') else 'api'
 
 urlpatterns = [
     path(api_prefix, views.api, name="api"),
-    path(api_prefix + "api.json", views.api_json, name="api_json"),
+    path(api_prefix + ".json", views.api_json, name="api_json"),
 ]
 user_defined_routes = []
 
