@@ -7,11 +7,9 @@ from banjo import views
 from banjo.forms import ApiRouteForm
 import json
 
-api_prefix = settings.API_PREFIX if hasattr(settings, 'API_PREFIX') else 'api'
-
 urlpatterns = [
-    path(api_prefix, views.api, name="api"),
-    path(api_prefix + ".json", views.api_json, name="api_json"),
+    path(settings.API_PREFIX, views.api, name="api"),
+    path(settings.API_PREFIX + ".json", views.api_json, name="api_json"),
 ]
 user_defined_routes = []
 
@@ -142,7 +140,6 @@ def create_api_view(url, fn, method, args=None):
     api_view.args = args or {}
     return api_view
     
-
 def route_get(url, args=None):
     """A decorator which registers a HTTP GET route in the Banjo app.
     """
@@ -150,7 +147,8 @@ def route_get(url, args=None):
         view = create_view(fn, "GET", args=args)
         api_view = create_api_view(url, fn, "GET", args=args)
         urlpatterns.append(path(url, view, name=view.__name__))
-        urlpatterns.append(path("api/" + url, api_view, name="api_" + view.__name__))
+        urlpatterns.append(path(settings.API_PREFIX + '/' + url, api_view, 
+                name="api_" + view.__name__))
         user_defined_routes.append(path(url, view, name=view.__name__))
         return view
     return bind_url_to_view
@@ -162,7 +160,8 @@ def route_post(url, args=None):
         view = create_view(fn, "POST", args=args)
         api_view = create_api_view(url, fn, "POST", args=args)
         urlpatterns.append(path(url, view, name=view.__name__))
-        urlpatterns.append(path("api/" + url, api_view, name="api_" + view.__name__))
+        urlpatterns.append(path(settings.API_PREFIX + '/' + url, api_view, 
+                name="api_" + view.__name__))
         user_defined_routes.append(path(url, view, name=view.__name__))
         return view
     return bind_url_to_view
