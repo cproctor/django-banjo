@@ -51,10 +51,8 @@ def main():
     parser.add_argument("-d", "--debug", action="store_true")
     parser.add_argument("-m", "--settings")
     args = parser.parse_args()
-
+    setup_django(args.debug, settings=args.settings)
     if args.shell:
-        setup_django(args.debug, settings=args.settings)
         management.execute_from_command_line(['', 'shell_plus'])
     else:
-        setup_django(args.debug, settings=args.settings)
         management.execute_from_command_line(['', 'runserver', str(args.port)])
