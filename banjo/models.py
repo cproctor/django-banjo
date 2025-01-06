@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Field, ForeignKey, ManyToOneRel
 from random import choice, sample
 
 class RandomItemQuerySet(models.QuerySet):
@@ -16,6 +17,18 @@ class RandomItemQuerySet(models.QuerySet):
             raise self.model.DoesNotExist(f"Requested {n} but {self.model.__name__} only contains {len(ids)} objects.")
         return self.filter(id__in=sample([i for i in ids], n))
 
+def serialize(obj):
+    """Safely converts an object to a dict, 
+    regardless of whether it implements banjo's `to_dict` interface.
+    """
+    if hasattr(obj, 'to_dict'):
+        try:
+            return obj.to_dict(with_related=False)
+        except TypeError:
+            return obj.to_dict()
+    else:
+        return {'id': obj.id}
+
 class Model(models.Model):
 
     objects = models.Manager.from_queryset(RandomItemQuerySet)()
@@ -28,19 +41,19 @@ class Model(models.Model):
             del props['id']
         return cls(**props)
 
-    def to_dict(self):
+    def to_dict(self, with_related=True):
         """Returns a json representation of the Model.
         """
-        field_names = [f.name for f in self._meta.get_fields() if f.name != "model_ptr"]
         d = {}
-        for name in field_names:
-            value = getattr(self, name)
-            if isinstance(value, Model):
-                d[name] = {'id': value.id}
-            elif hasattr(value, 'all'):
-                d[name] = [{'id': obj.id} for obj in value.all()]
-            else:
-                d[name] = value
+        for field in self._meta.get_fields():
+            if with_related and isinstance(field, ForeignKey):
+                related_object = getattr(self, field.name)
+                d[field.name] = serialize(related_object)
+            elif isinstance(field, Field):
+                d[field.name] = field.value_from_object(self)
+            elif with_related and isinstance(field, ManyToOneRel):
+                related_objects = getattr(self, field.get_accessor_name()).all()
+                d[field.get_accessor_name()] = [serialize(obj) for obj in related_objects]
         return d
 
     def __str__(self):

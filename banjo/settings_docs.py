@@ -53,3 +53,4 @@ SHELL_PLUS_DONT_LOAD = [
     "sessions",
 ]
 SHELL_PLUS_DJANGO_IMPORTS = False
+API_PREFIX = 'api'
