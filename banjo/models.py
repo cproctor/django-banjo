@@ -1,8 +1,8 @@
 from django.db import models
-from django.db.models import Field, ForeignKey, ManyToOneRel
+from django.db.models import Field, ManyToOneRel
 from random import choice, sample
 
-class RandomItemQuerySet(models.QuerySet):
+class QuerySet(models.QuerySet):
     """Extends the base QuerySey with random() and sample() methods
     """
     def random(self):
@@ -31,7 +31,7 @@ def serialize(obj):
 
 class Model(models.Model):
 
-    objects = models.Manager.from_queryset(RandomItemQuerySet)()
+    objects = models.Manager.from_queryset(QuerySet)()
 
     @classmethod
     def from_dict(cls, props):
@@ -46,7 +46,7 @@ class Model(models.Model):
         """
         d = {}
         for field in self._meta.get_fields():
-            if with_related and isinstance(field, ForeignKey):
+            if with_related and isinstance(field, models.ForeignKey):
                 related_object = getattr(self, field.name)
                 d[field.name] = serialize(related_object)
             elif isinstance(field, Field):

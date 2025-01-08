@@ -13,6 +13,9 @@ urlpatterns = [
 ]
 user_defined_routes = []
 
+class JsonRequiresDict(TypeError):
+    pass
+
 def validate_args(args):
     """Checks that args (the param type signature) is valid.
     """
@@ -49,6 +52,8 @@ def create_view(fn, method, args=None):
             if form.is_valid():
                 try:
                     result = fn(form.cleaned_data)
+                    if not isinstance(result, dict):
+                        raise JsonRequiresDict(f"Banjo views must return a dict, not {result}.")
                     return JsonResponse(result)
                 except http.BadRequest as e:
                     return JsonResponse({'error': str(e)}, status=e.status_code)
@@ -57,6 +62,8 @@ def create_view(fn, method, args=None):
         else:
             try:
                 result = fn({})
+                if not isinstance(result, dict):
+                    raise JsonRequiresDict(f"Banjo views must return a dict, not {result}.")
                 return JsonResponse(result)
             except http.BadRequest as e:
                 return JsonResponse({'error': str(e)}, status=e.status_code)

@@ -11,7 +11,7 @@ def describe_route(urlpattern):
         "human_name": p.name.replace("_", " ").capitalize(),
         "description": f.__doc__ or "",
         "arguments": {param: type_.__name__ for param, type_ in f.args.items()},
-        "url": settings.API_PREFIX + reverse(p.name),
+        "url": reverse(p.name),
         "api_url": reverse("api_" + p.name),
         "method": f.method,
     }
