@@ -1,5 +1,5 @@
-Models
-======
+More about models
+=================
 
 This section goes into more detail on how to work with models. You can read much more
 in `Django's documentation on models <https://docs.djangoproject.com/en/5.1/topics/db/models/>`_.

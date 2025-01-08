@@ -9,9 +9,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'banjo.settings_docs')
 django.setup()
 
 project = 'Banjo'
-copyright = '2024, Chris Proctor'
+copyright = '2025, Chris Proctor'
 author = 'Chris Proctor'
-release = '0.8.1'
+release = '0.9.0'
 extensions = ['sphinx.ext.viewcode', 'sphinx.ext.autodoc']
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

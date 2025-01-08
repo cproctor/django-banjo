@@ -116,6 +116,6 @@ pass the ``--shell`` argument to banjo:
 
 ::
 
-   $ banjo --shell
-   > Animal.objects.count()
+   banjo --shell
+   >>> Animal.objects.count()
    2

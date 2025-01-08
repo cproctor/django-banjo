@@ -1,8 +1,12 @@
 HTTP errors
 ===========
 
-If something goes wrong and it’s the client’s fault, you can raise an
-error. For example, you might add another view to ``app/views.py``:
+If something goes wrong and it’s the client’s fault, you can raise 
+one of the errors in ``banjo.http``. This will sstop execution of your
+view function and instead return a response with a HTTP status code
+indicating what went wrong. You can initialize the error with a string
+explaining the issue. 
+For example, you might add another view to ``app/views.py``:
 
 ::
 

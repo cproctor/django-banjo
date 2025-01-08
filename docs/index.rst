@@ -22,6 +22,7 @@ replicated here.
    models
    errors
    advanced
+   debugging
    pedagogy
    api/index
 
