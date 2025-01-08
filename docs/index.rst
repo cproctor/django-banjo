@@ -19,7 +19,7 @@ replicated here.
    :caption: Contents:
 
    intro
-   relationships
+   models
    errors
    advanced
    pedagogy
