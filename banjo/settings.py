@@ -6,7 +6,7 @@ ROOT_URLCONF = "banjo.urls"
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'database.sqlite',
+        'NAME': 'app/database.sqlite',
     }
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
