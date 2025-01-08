@@ -35,9 +35,12 @@ def setup_django(debug=False, settings=None, clean=False):
 
     if clean:
         from django.conf import settings
-        Path(settings.DATABASES["default"]["NAME"]).unlink()
-        if Path("app/migrations").exists():
-            shutil.rmtree("app/migrations")
+        db_file = Path(settings.DATABASES["default"]["NAME"])
+        if db_file.exists():
+            db_file.unlink()
+        migrations_dir = Path("app/migrations")
+        if migrations_dir.exists():
+            shutil.rmtree(migrations_dir)
 
     from app import views
 
