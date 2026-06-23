@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "django-banjo"
-version = "0.9.1"
+version = "0.9.2"
 description = "A simplified abstraction over django for beginners."
 license = "MIT"
 authors = ["Chris Proctor <chris@chrisproctor.net>"]
 readme = "README.md"
 homepage = "https://github.com/cproctor/django-banjo"
 repository = "https://github.com/cproctor/django-banjo"
-documentation = "https://django-banjo.readthedocs.io"
+documentation = "https://docs.makingwithcode.org/django-banjo"
 packages = [{include = "banjo"}]
 
 [tool.poetry.dependencies]
